@@ -6,7 +6,7 @@ description: A minimal Python example that prints a complete response from GitHu
 ## What it does
 
 Starts a Copilot client, creates a non-streaming session using your own
-model endpoint and Azure CLI credentials, asks "What is 2+2?", and prints the complete response.
+model endpoint and Azure CLI credentials, asks for a tech joke, and prints the complete response.
 Async context managers close the session and client, including when a request fails.
 
 ## Prerequisites
@@ -45,13 +45,15 @@ uv run main.py
 
 Use your deployment name, which may differ from the underlying model name.
 Supply the base URL ending in `/openai/v1/`, not `/responses`.
-You can also supply your Foundry project URL, such as
-`https://<resource-name>.services.ai.azure.com/api/projects/<project-name>`.
-The script converts project URLs to `https://<resource-name>.services.ai.azure.com/openai/v1/`
-for direct model inference; it does not call the project API.
+For a Foundry resource using the `services.ai.azure.com` hostname, use
+`https://<resource-name>.services.ai.azure.com/openai/v1/`.
+Despite the variable name, `FOUNDRY_PROJECT_ENDPOINT` must contain the model
+inference base URL, not an `/api/projects/<project-name>` URL.
+The script passes this value directly to the provider without converting it.
 The code uses `wire_api="responses"`; change it to `"completions"` for a
 deployment that requires Chat Completions instead.
-Missing or blank environment variables produce an error before starting the client.
+Both configuration variables are required. Missing variables raise a `KeyError`;
+blank values are not validated by the script.
 The script loads `.env` from its own folder, even when run from another directory.
 Existing environment variables take precedence over values in `.env`.
 The `.env` file is ignored by Git.
