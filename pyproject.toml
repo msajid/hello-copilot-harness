@@ -1,0 +1,23 @@
+[project]
+name = "hello-copilot-harness"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = [
+    "azure-identity>=1.27.0",
+    "github-copilot-sdk==1.0.25",
+    "python-dotenv>=1.2.4",
+]
+
+[dependency-groups]
+dev = [
+    "ipykernel",
+    "ipywidgets",
+    "pytest",
+    "ruff",
+    "tqdm",
+]
+
+[[tool.uv.index]]
+name = "microsoft-proxy"
+url = "https://packagefeedproxy.microsoft.io/pypi/simple/"
+default = true
