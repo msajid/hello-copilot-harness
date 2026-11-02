@@ -36,6 +36,12 @@ FOUNDRY_PROJECT_ENDPOINT=https://<resource-name>.openai.azure.com/openai/v1/
 FOUNDRY_MODEL=<your-deployment-name>
 ```
 
+To enable Azure Monitor / Application Insights, also set
+`APPLICATIONINSIGHTS_CONNECTION_STRING` in `.env` to the connection string from
+your Application Insights resource. This setting is optional; without it, the
+app continues to run and writes its monitoring logs to the console. Do not
+commit the connection string.
+
 Sign in and run:
 
 ```powershell
@@ -72,7 +78,12 @@ The project uses Microsoft's Python package proxy, configured in
 The SDK is pinned to `1.0.25`, the newest stable version available in that mirror
 when this example was set up.
 Development dependencies include notebook support, Ruff, tqdm, and pytest;
-the example itself uses `github-copilot-sdk`, `azure-identity`, and `python-dotenv`.
+the example itself uses `github-copilot-sdk`, `azure-identity`, `python-dotenv`,
+and `microsoft-opentelemetry` for optional Azure Monitor telemetry. The
+instrumentation follows the [official Microsoft OpenTelemetry setup for
+Python](https://learn.microsoft.com/en-us/azure/azure-monitor/app/opentelemetry-enable?tabs=python).
+For a hosted deployment, configure the same connection-string environment
+variable in the hosting platform instead of storing it in a committed file.
 
 You can also run the environment's Python directly, without activating it:
 
